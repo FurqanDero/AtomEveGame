@@ -45,11 +45,9 @@ public class RoomManager : MonoBehaviour
     {
         Debug.Log("Room cleared! Door opening...");
 
+        // Enable the door trigger
         if (doorObject != null)
-            doorObject.SetActive(false);
-
-        // Load next room after delay
-        Invoke("LoadNextRoom", 1.5f);
+            doorObject.SetActive(true);
     }
 
     void LoadNextRoom()
