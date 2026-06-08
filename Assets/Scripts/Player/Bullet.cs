@@ -34,8 +34,22 @@ public class Bullet : MonoBehaviour
         {
             EnemyHealth enemyHealth =
                 other.GetComponent<EnemyHealth>();
+
             if (enemyHealth != null)
+            {
                 enemyHealth.TakeDamage(damage);
+
+                // Send knockback direction
+                DroneAI droneAI =
+                    other.GetComponent<DroneAI>();
+                if (droneAI != null)
+                {
+                    Vector2 knockbackDir =
+                        (other.transform.position -
+                        transform.position).normalized;
+                    droneAI.TriggerHurt(knockbackDir);
+                }
+            }
 
             ReturnToPool();
         }
