@@ -10,14 +10,14 @@ public class MaulerTwin : MonoBehaviour
     public TwinState currentState = TwinState.Active;
 
     [Header("Health")]
-    public float maxHealth = 80f;
+    public float maxHealth = 250f;
     private float currentHealth;
 
     [Header("Melee Settings")]
     public float meleeSpeed = 2.5f;
     public float meleeRange = 1f;
-    public float meleeDamage = 15f;
-    public float meleeCooldown = 1.5f;
+    public float meleeDamage = 22f;
+    public float meleeCooldown = 1.1f;
     private float meleeTimer = 0f;
 
     [Header("Ranged Settings")]
@@ -26,14 +26,14 @@ public class MaulerTwin : MonoBehaviour
     public float tooCloseRange = 3f;
     public GameObject projectilePrefab;
     public float projectileSpeed = 8f;
-    public float rangedDamage = 12f;
+    public float rangedDamage = 18f;
     public float shootCooldown = 1.8f;
     private float shootTimer = 0f;
 
     [Header("Enrage")]
     public bool isEnraged = false;
-    public float enrageSpeedMultiplier = 1.5f;
-    public float enrageCooldownMultiplier = 0.6f;
+    public float enrageSpeedMultiplier = 1.8f;
+    public float enrageCooldownMultiplier = 0.45f;
 
     [Header("Hurt")]
     public float hurtDuration = 0.2f;
@@ -276,6 +276,10 @@ public class MaulerTwin : MonoBehaviour
     {
         isEnraged = true;
         sr.color = Color.red;
+
+        // Boost damage on enrage
+        meleeDamage *= 1.3f;
+        rangedDamage *= 1.3f;
 
         if (cameraShake != null)
             cameraShake.Shake(0.5f, 0.4f);

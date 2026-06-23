@@ -149,7 +149,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::RoomManager
   nextRoomScene: Room_Boss
-  doorObject: {fileID: 0}
+  doorObject: {fileID: 1370415437}
 --- !u!4 &91523619
 Transform:
   m_ObjectHideFlags: 0
