@@ -32,6 +32,23 @@ public class Bullet : MonoBehaviour
     {
         if (other.CompareTag("Enemy"))
         {
+            // Check for shield block first
+            ShieldDroneAI shield =
+                other.GetComponent<ShieldDroneAI>();
+
+            if (shield != null)
+            {
+                Vector2 bulletDir = rb.linearVelocity.normalized;
+
+                if (shield.IsShieldBlocking(bulletDir))
+                {
+                    // Blocked! Bullet bounces off, no damage
+                    Debug.Log("Shield blocked the shot!");
+                    ReturnToPool();
+                    return;
+                }
+            }
+
             EnemyHealth enemyHealth =
                 other.GetComponent<EnemyHealth>();
 
@@ -52,6 +69,9 @@ public class Bullet : MonoBehaviour
                     other.GetComponent<GunnerAI>();
                 if (gunnerAI != null)
                     gunnerAI.TriggerHurt(knockbackDir);
+
+                if (shield != null)
+                    shield.TriggerHurt(knockbackDir);
             }
 
             ReturnToPool();

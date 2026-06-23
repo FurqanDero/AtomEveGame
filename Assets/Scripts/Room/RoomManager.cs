@@ -5,7 +5,6 @@ public class RoomManager : MonoBehaviour
 {
     [Header("Room Settings")]
     public string nextRoomScene = "Room_02";
-    public bool isBossRoom = false;
 
     [Header("References")]
     public GameObject doorObject;
@@ -16,15 +15,14 @@ public class RoomManager : MonoBehaviour
 
     void Start()
     {
-        // Count all enemies in room
         totalEnemies = GameObject
             .FindGameObjectsWithTag("Enemy").Length;
 
         Debug.Log("Room enemies: " + totalEnemies);
 
-        // Close door at start
+        // Door starts OFF — disable the whole GameObject
         if (doorObject != null)
-            doorObject.SetActive(true);
+            doorObject.SetActive(false);
     }
 
     public void EnemyDefeated()
@@ -45,14 +43,11 @@ public class RoomManager : MonoBehaviour
     {
         Debug.Log("Room cleared! Door opening...");
 
-        // Enable the door trigger
         if (doorObject != null)
+        {
             doorObject.SetActive(true);
-    }
-
-    void LoadNextRoom()
-    {
-        if (!string.IsNullOrEmpty(nextRoomScene))
-            SceneManager.LoadScene(nextRoomScene);
+            Debug.Log("Door active state: " +
+                      doorObject.activeSelf);
+        }
     }
 }
