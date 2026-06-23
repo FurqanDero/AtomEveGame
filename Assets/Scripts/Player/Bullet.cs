@@ -32,23 +32,32 @@ public class Bullet : MonoBehaviour
     {
         if (other.CompareTag("Enemy"))
         {
-            // Check for shield block first
+            // Shield check (existing code)
             ShieldDroneAI shield =
                 other.GetComponent<ShieldDroneAI>();
 
             if (shield != null)
             {
-                Vector2 bulletDir = rb.linearVelocity.normalized;
-
+                Vector2 bulletDir =
+                    rb.linearVelocity.normalized;
                 if (shield.IsShieldBlocking(bulletDir))
                 {
-                    // Blocked! Bullet bounces off, no damage
-                    Debug.Log("Shield blocked the shot!");
                     ReturnToPool();
                     return;
                 }
             }
 
+            // Mauler Twin damage
+            MaulerTwin twin =
+                other.GetComponent<MaulerTwin>();
+            if (twin != null)
+            {
+                twin.TakeDamage(damage);
+                ReturnToPool();
+                return;
+            }
+
+            // Regular enemy damage (existing code)
             EnemyHealth enemyHealth =
                 other.GetComponent<EnemyHealth>();
 
